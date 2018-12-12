@@ -26,11 +26,73 @@ var level01 = function (window) {
         game.setDebugMode(true);
 
         // BEGIN EDITING YOUR CODE HERE
-
-
-    }
+        function createSawBlade(x,y) {
+        var hitZoneSize = 25;
+        var damageFromObstacle = 10;
+        var myObstacle = game.createObstacle(hitZoneSize,damageFromObstacle);
+        myObstacle.x = x;
+        myObstacle.y = y;
+        game.addGameItem(myObstacle);
+        var obstacleImage = draw.bitmap('img/tubleweed.png');
+        myObstacle.addChild(obstacleImage);
+        obstacleImage.x = -25;
+        obstacleImage.y = -25;
+        }
+        createSawBlade(700, 290);
+        createSawBlade(2000, 290);
+        createSawBlade(4000, 290);
+        
+        function createEnemy(x, y) {
+        var enemy =  game.createGameItem('enemy',25);
+        //var redSquare = draw.rect(50,50,'red');
+        //redSquare.x = -25;
+        //redSquare.y = -25;
+        //enemy.addChild(redSquare);
+        enemy.x = x;
+        enemy.y = groundY-50;
+        game.addGameItem(enemy);
+        var enemyImage = draw.bitmap('img/bandit.png');
+        enemy.addChild(enemyImage);
+        enemyImage.x = -90;
+        enemyImage.y = -90;
+        enemy.velocityX = -1;
+        enemy.onPlayerCollision = function() {
+            console.log('The enemy has hit Halle');
+            game.changeIntegrity(-10);
+            enemy.shrink();
+        };
+        enemy.onProjectileCollision = function() {
+            console.log('Halle has hit the enemy');
+            game.increaseScore(100);
+            enemy.fadeOut();
+        };
+        };
+        createEnemy(2750, 290);
+        createEnemy(4500, 290);
+        
+        function createReward(x, y) {
+            var reward =  game.createGameItem('enemy',12);
+            reward.x = x;
+            reward.y = y;
+            game.addGameItem(reward);
+            var rewardImage = draw.bitmap('img/coin.png');
+            reward.addChild(rewardImage);
+            rewardImage.x = -11;
+            rewardImage.y = -11;
+            reward.velocityX = -1.5;
+            reward.onPlayerCollision = function() {
+                console.log('Halle has collected a coin');
+                game.increaseScore(100);
+                reward.shrink();
+            };
+        };
+        createReward(800, 200);
+        createReward(1200, 200);
+        
+    };
+   
 };
-
+ 
 // DON'T REMOVE THIS CODE //////////////////////////////////////////////////////
 if((typeof process !== 'undefined') &&
     (typeof process.versions.node !== 'undefined')) {

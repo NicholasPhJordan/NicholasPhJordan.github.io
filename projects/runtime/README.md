@@ -117,8 +117,8 @@ Now, open up `js/view/background.js` and find where the variable `backgroundFill
     draw.rect(width, height, fillColor)
 
 Let's make some changes to the function call to get our background filled in just right:
-- Search on Google for "color picker" and choose a color that you want for your background.
-- Change the height of the background to `ground.y`
+- Choose a color that you want for your background and adjust the `fillColor` argument .
+- Change the height of the background. Try out the following values and choose which one you like best. Try `canvasHeight`, `100`, and `groundY`
 
 As a last step, depending on the background you've built, your heads-up-display may be hard to see or just plain ugly. Modify the colors used by `js/view/hud.js` to match your background.
 
@@ -135,13 +135,6 @@ Image | Code
 ![line](http://i.imgur.com/Zy8nY0C.png)   | `var shape = draw.line(fromX, fromY, toX, toY, strokeColor, strokeWidth);`
 ![circle](http://i.imgur.com/Zc9hJqU.png)    | `var shape = draw.circle(radius, color, strokeColor, strokeWidth);`
 ![image](http://i.imgur.com/BGZCnX8.png)     | `var shape = draw.bitmap('img/moon.png');`
-
-## Adding your own Images for a bitmap object
-The moon.png image is stored in the img folder. You can add your own custom images too! Once you have downloaded the image you would like to add (you can easily find png pictures by adding .png to your google image search) you can upload that file to your cloud9 workspace. 
-- Select the img folder
-- Go to File -> Upload Local Files -> Select / Drag & Drop downloaded image. 
-- Move that image into the img folder
-- call `draw.bitmap()` using 'img/<name of your picture.png>' for the href
 
 In order to make your shape show on sreen you will need to add it to the `background` by calling
 
@@ -163,6 +156,13 @@ We've defined a couple of variables that should help you draw shapes in the righ
 `groundY` is the y coordinate of the ground line  
 
 See the [opspark-draw documentation](https://libraries.io/bower/opspark-draw) for more details on drawing functions you can use or look at the source directly in your project at `bower_components/opspark-draw/draw.js`. You can also use anything in the [create.js API](http://www.createjs.com/docs/easeljs/modules/EaselJS.html).
+
+## Adding your own Images for a bitmap object
+The moon.png image is stored in the img folder. You can add your own custom images too! Once you have downloaded the image you would like to add (you can easily find png pictures by adding .png to your google image search) you can upload that file to your cloud9 workspace. 
+- Select the img folder
+- Go to File -> Upload Local Files -> Select / Drag & Drop downloaded image. 
+- Move that image into the img folder
+- call `draw.bitmap()` using 'img/<name of your picture.png>' for the href
 
 # TODO 3 - Create Your Own Background
 All drawing code for the background should go at `TODO: 3` in `js/view/background.js` within the `render()` function. 
@@ -246,7 +246,7 @@ You should now see the tree moving. What happened? Why is it doing that? Make su
 
 **Change the code so that the tree moves towards Halle**
 
-Try adding the following code to `update()`
+Below that, try adding the following code to `update()`
 
 ```js
 if(tree.x < -200) {
@@ -268,7 +268,7 @@ After the declaration of `tree` declare a variable `buildings` and assign it an 
 
     var buildings = [];
 
-In `render()` create several rectangles using a `for` loop and add them to `buildings` array. 
+In the `render` function at `TODO 5` create several rectangles using a `for` loop and add them to `buildings` array. 
 
 ```js
 var buildingHeight = 300;
@@ -292,7 +292,7 @@ Make sure you understand what each line of this code does. Change how the buildi
 
 # TODO 5 Part 2
 
-Now, write code in `update()` that animates the buildings so that they move towards Halle:
+Now, write code in `update` that animates the buildings so that they move towards Halle. Our `buildings` Array contains the building objects that we want to move.
 - How can you move all of the buildings in the buildings array? 
 - Use the technique we applied to `tree` to make the buildings continually appear after they exit the screen as Halle walks. 
 
@@ -361,7 +361,7 @@ This loads up an image and adds it to our obstacle. You should now see a saw bla
 
 ![Saw blade](https://i.imgur.com/T9eSaWb.png)
 
-You should also notice that saw blade doesn't fit within the hitzone. That is because when we `myObstacle.addChild()` the image is placed at the origin of the hitzone. You should adjust the `x` and `y` property of `myObstacle` so that it fits within the hit zone.
+You should also notice that saw blade doesn't fit within the hitzone. This is because the top left corner of the box that surrounds the sawblade image is placed at the center of `myObstacle` hitzone. You should adjust the `x` and `y` property of `obstacleImage` so that it fits perfectly within the hit zone of `myObstacle`.
 
     obstacleImage.x = -25;
     obstacleImage.y = -25;
@@ -388,7 +388,7 @@ function createSawBlade(x,y) {
 }  
 ```
 
-Identify the code that creates your saw blade and adds it to the game (See TODO 7) and move it into the body of `createSawBlade()`. Adapt that code to use the `x` and `y` parameters to place the saw blade at `(x,y)` on the screen.
+Identify **ALL** the code that creates your sawblade obstacle from TODO 7 and move it into the body of `createSawBlade()`. Then, adapt that code to use the `x` and `y` parameters to place the saw blade at `(x,y)` on the screen.
 
 Call `createSawBlade()` three times with different `x` and `y` arguments in order to place the saw blade at different locations. You should place the saw blades so Halle can jump over some and duck others.
 
@@ -408,18 +408,17 @@ To access a property value in an object you provide the property name with *dot 
 
 For nested collections, use one after the other. Here is an example of an object containing an array of objects: `object.arrayName[index].propertyName`
 
-Using a for-loop, iterate through this array and, for each object, create an obstacle using that object's `.x` and `.y` property as arguments. Your code will look like this:
+Using a for-loop, iterate through this array and, for each game item object, call the `createSawblade()` function using that object's `.x` and `.y` property as arguments. Your code will look like this:
 
 ```js
 
 for (iterate through levelData.gameItems) {
-    // Create a sawblade using the .x and .y property of gameItem
+    var gameItem = ???
+    // Create a sawblade using the .x and .y property of each game item object
 }
 ```
 
-You can also try using the Array [forEach](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach) function. Check out this video for some help: https://www.youtube.com/watch?v=159EAISAxwg
-
-Now, instead of having to call your createSawblade function, you can simply add a new gameItem obect to the levelData.gameItems array and a new obstacle will be dynamically created.
+Now, instead of having to call your `createSawblade()` function each time you want a new obstacle, you can simply add a new gameItem obect to the `levelData.gameItems` array and a new obstacle will be dynamically created.
 
 Add a couple more saw blades to your game, now by modifying the `levelData.gameItems` array.
 
