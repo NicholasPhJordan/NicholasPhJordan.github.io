@@ -31,7 +31,7 @@ var level01 = function (window) {
         var damageFromObstacle = 10;
         var myObstacle = game.createObstacle(hitZoneSize,damageFromObstacle);
         myObstacle.x = x;
-        myObstacle.y = y;
+        myObstacle.y =  groundY-10;
         game.addGameItem(myObstacle);
         var obstacleImage = draw.bitmap('img/tubleweed.png');
         myObstacle.addChild(obstacleImage);
@@ -39,8 +39,14 @@ var level01 = function (window) {
         obstacleImage.y = -25;
         }
         createSawBlade(700, 290);
+        createSawBlade(1200, 290);
         createSawBlade(2000, 290);
+        createSawBlade(2500, 290);
+        createSawBlade(3000, 290);
         createSawBlade(4000, 290);
+        createSawBlade(4500, 290);
+        createSawBlade(5000, 290);
+        createSawBlade(525000, 290);
         
         function createEnemy(x, y) {
         var enemy =  game.createGameItem('enemy',25);
@@ -55,10 +61,10 @@ var level01 = function (window) {
         enemy.addChild(enemyImage);
         enemyImage.x = -90;
         enemyImage.y = -90;
-        enemy.velocityX = -1;
+        enemy.velocityX = -1.25;
         enemy.onPlayerCollision = function() {
             console.log('The enemy has hit Halle');
-            game.changeIntegrity(-10);
+            game.changeIntegrity(-30);
             enemy.shrink();
         };
         enemy.onProjectileCollision = function() {
@@ -67,13 +73,15 @@ var level01 = function (window) {
             enemy.fadeOut();
         };
         };
-        createEnemy(2750, 290);
+        createEnemy(2000, 290);
+        createEnemy(2850, 290);
+        createEnemy(3800, 290);
         createEnemy(4500, 290);
         
         function createReward(x, y) {
             var reward =  game.createGameItem('enemy',12);
             reward.x = x;
-            reward.y = y;
+            reward.y =  groundY-150;
             game.addGameItem(reward);
             var rewardImage = draw.bitmap('img/coin.png');
             reward.addChild(rewardImage);
@@ -88,6 +96,11 @@ var level01 = function (window) {
         };
         createReward(800, 200);
         createReward(1200, 200);
+        createReward(1800, 200);
+        createReward(2600, 200);
+        createReward(2900, 200);
+        createReward(4000, 200);
+        createReward(4700, 200);
         
     };
    

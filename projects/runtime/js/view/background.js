@@ -38,8 +38,14 @@ var buildings = [];
             // you should modify this to suit your game
             var backgroundFill = draw.rect(canvasWidth ,canvasHeight,'tan');
             background.addChild(backgroundFill);
-            var shape = draw.bitmap('img/Western.png')
+            //var shape = draw.bitmap('img/Western.png');
+            //background.addChild(shape);
+            
+            
+            var shape = draw.bitmap('img/Western.png');
             background.addChild(shape);
+            shape.x = ground;
+            shape.y = groundY; 
             
             // TODO: 3 - Add a moon and starfield
             /*var circle;
@@ -69,7 +75,7 @@ var buildings = [];
             // TODO 4: Part 1 - Add a tree
             tree = draw.bitmap('img/cactus.png');
             tree.x = 0;
-            tree.y = 70;
+            tree.y =  groundY-250;
             background.addChild(tree);
         }
         
